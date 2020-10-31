@@ -1,0 +1,21 @@
+version: "3"
+services:
+    unit:
+        image: consoleapp-unit-tests
+        container_name: consoleapp-unit-tests
+        build:
+            context: .
+            dockerfile: ./Dockerfile.UnitTests
+        volumes:
+            - ./results:/app/results
+    coverage:
+        image: consoleapp-reportgenerator
+        container_name: consoleapp-reportgenerator
+        build:
+            context: .
+            dockerfile: ./Dockerfile.ReportGenerator
+        depends_on:
+            - unit 
+        volumes:
+            - ./results:/app/results
+
